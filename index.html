@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Private Zimmervermietung Familie Schrödel | Gelsenkirchen-Buer</title>
+    <meta
+      name="description"
+      content="Zimmervermietung mit Zimmeruebersicht, Preisen, Ausstattung, Kontakt und Anfrageformular."
+    >
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Zur Startseite">
+        <span class="brand-mark">Z</span>
+        <span>
+          <strong data-business-name>Zimmervermietung</strong>
+          <small data-business-location>Ihre Stadt</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Hauptnavigation">
+        <a href="#zimmer">Zimmer</a>
+        <a href="#ausstattung">Ausstattung</a>
+        <a href="#lage">Lage</a>
+        <a href="#anfrage">Anfrage</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero-section">
+        <div class="hero-media photo-slot" data-photo-src="assets/hero-room.jpg">
+          <span>Hero-Foto einpflegen: assets/hero-room.jpg</span>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">Private Zimmervermietung in Gelsenkirchen-Buer</p>
+          <h1>Gemütliche Zimmer für Monteure, Geschäftsreisende und private Gäste.</h1>
+          <p>
+            Ruhige Lage in Gelsenkirchen-Buer, modern eingerichtete Gemeinschaftsküche,
+            familiäre Atmosphäre und faire Preise ab 40 Euro pro Nacht.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#zimmer">Zimmer ansehen</a>
+            <a class="button secondary" href="#anfrage">Anfrage senden</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="zimmer">
+        <div class="section-heading">
+          <p class="eyebrow">Zimmer & Preise</p>
+          <h2>Aktuelle Zimmerangebote</h2>
+          <p>Die Preise können je nach Termin, Saison, Auslastung und Aufenthaltsdauer variieren.</p>
+        </div>
+        <div class="room-grid" data-room-list></div>
+      </section>
+
+      <section class="band-section" id="ausstattung">
+        <div class="section-heading compact">
+          <p class="eyebrow">Ausstattung</p>
+          <h2>Alles Wichtige für einen unkomplizierten Aufenthalt</h2>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <h3>Ein- und Mehrbettzimmer</h3>
+            <p>Gemütlich und familiär eingerichtete Zimmer für kurze oder längere Aufenthalte.</p>
+          </article>
+          <article>
+            <h3>Gemeinschaftsküche</h3>
+            <p>Moderne Küche mit Kühlschrank, Kaffeemaschine, Wasserkocher, Mikrowelle und Kochzubehör.</p>
+          </article>
+          <article>
+            <h3>Ruhige Lage</h3>
+            <p>Autobahnnah, zentrumsnah und mit Veltins-Arena sowie Ausflugszielen in der Umgebung.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section location-section" id="lage">
+        <div class="section-heading">
+          <p class="eyebrow">Lage</p>
+          <h2>Hugostraße 42 in 45897 Gelsenkirchen</h2>
+          <p>
+            Die Unterkunft liegt ruhig in Gelsenkirchen-Buer. Die Veltins-Arena ist
+            schnell erreichbar; auch Schloss Berge, Berger See und die Schüngelberg-Halde
+            bieten sich für Spaziergänge und kurze Ausflüge an.
+          </p>
+        </div>
+        <div class="info-grid">
+          <article>
+            <h3>Entfernungen</h3>
+            <p>Ca. 7,2 km bis zum Stadtzentrum Gelsenkirchen. Die Veltins-Arena ist etwa 5 bis 10 Minuten mit dem Auto entfernt.</p>
+          </article>
+          <article>
+            <h3>Umgebung</h3>
+            <p>Nahversorgung, Gastronomie und Verkehrsanbindungen sind im Bereich Buer gut erreichbar.</p>
+          </article>
+          <article>
+            <h3>Parken</h3>
+            <p>Bei Anreise mit dem PKW werden öffentliche Parkmöglichkeiten in der Umgebung genutzt.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section split-section" id="anfrage">
+        <div>
+          <p class="eyebrow">Kontakt</p>
+          <h2>Anfrageformular</h2>
+          <p>
+            Das Formular ist frontendseitig vorbereitet. Fuer den echten Versand
+            kann spaeter E-Mail, ein Backend oder ein Buchungssystem angebunden werden.
+          </p>
+          <div class="contact-panel">
+            <strong data-business-name>Zimmervermietung</strong>
+            <span data-contact-address></span>
+            <a data-contact-email href="mailto:kontakt@example.com">kontakt@example.com</a>
+            <a data-contact-phone href="tel:+490000000000">+49 000 0000000</a>
+            <a data-contact-mobile href="tel:+490000000000">+49 000 0000000</a>
+          </div>
+        </div>
+
+        <form class="form-card" data-inquiry-form>
+          <label>
+            Name
+            <input name="name" autocomplete="name" required>
+          </label>
+          <label>
+            E-Mail
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label>
+            Telefon
+            <input name="phone" autocomplete="tel">
+          </label>
+          <label>
+            Wunschzimmer
+            <select name="room" data-room-select required></select>
+          </label>
+          <div class="form-row">
+            <label>
+              Anreise
+              <input type="date" name="arrival" required>
+            </label>
+            <label>
+              Abreise
+              <input type="date" name="departure" required>
+            </label>
+          </div>
+          <label>
+            Nachricht
+            <textarea name="message" rows="5" placeholder="Zeitraum, Personenzahl, Rueckfragen"></textarea>
+          </label>
+          <button class="button primary" type="submit">Anfrage vorbereiten</button>
+          <p class="form-status" data-form-status role="status"></p>
+        </form>
+      </section>
+
+      <section class="band-section admin-section" id="admin" data-admin-section hidden>
+        <div class="section-heading compact">
+          <p class="eyebrow">Admin</p>
+          <h2>Lokale Verwaltung</h2>
+          <p>
+            Aenderungen werden im Browser gespeichert. Das ist fuer den Anfang
+            praktisch; spaeter kann daraus ein geschuetzter Admin-Bereich mit Datenbank werden.
+          </p>
+        </div>
+
+        <div class="admin-grid">
+          <form class="admin-card" data-business-form>
+            <h3>Kontakt bearbeiten</h3>
+            <label>
+              Name der Vermietung
+              <input name="name" required>
+            </label>
+            <label>
+              Ort
+              <input name="location" required>
+            </label>
+            <label>
+              E-Mail
+              <input type="email" name="email" required>
+            </label>
+            <label>
+              Telefon
+              <input name="phone" required>
+            </label>
+            <label>
+              Mobil
+              <input name="mobile" required>
+            </label>
+            <label>
+              Adresse
+              <input name="address" required>
+            </label>
+            <button class="button secondary" type="submit">Kontakt speichern</button>
+          </form>
+
+          <form class="admin-card" data-room-form>
+            <h3>Zimmer bearbeiten</h3>
+            <label>
+              Zimmer
+              <select name="roomId" data-admin-room-select></select>
+            </label>
+            <label>
+              Titel
+              <input name="title" required>
+            </label>
+            <label>
+              Preis
+              <input name="price" required>
+            </label>
+            <label>
+              Verfuegbarkeit
+              <input name="availability" required>
+            </label>
+            <label>
+              Bildpfad
+              <input name="image" placeholder="assets/zimmer-1.jpg">
+            </label>
+            <label>
+              Beschreibung
+              <textarea name="description" rows="4" required></textarea>
+            </label>
+            <label>
+              Ausstattung, mit Komma getrennt
+              <input name="features" required>
+            </label>
+            <button class="button secondary" type="submit">Zimmer speichern</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-business-name>Zimmervermietung</span>
+      <span>Keine Kartenzahlung möglich, bitte Barzahlung einplanen.</span>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
