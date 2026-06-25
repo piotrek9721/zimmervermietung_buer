@@ -338,8 +338,8 @@ h3 {
 }
 
 .building-photo {
-  height: clamp(220px, 26vw, 320px);
-  min-height: 220px;
+  height: clamp(440px, 48vw, 640px);
+  min-height: 440px;
   margin: 0;
   overflow: hidden;
   border: 1px solid rgba(228, 221, 208, 0.95);
@@ -356,7 +356,7 @@ h3 {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 220px;
+  min-height: 440px;
   object-fit: cover;
 }
 
@@ -604,6 +604,12 @@ textarea:focus {
   .building-photo.large {
     grid-row: span 1;
   }
+
+  .building-photo,
+  .building-photo img {
+    height: 420px;
+    min-height: 420px;
+  }
 }
 
 @media (max-width: 680px) {
@@ -638,5 +644,11 @@ textarea:focus {
   .admin-grid,
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .building-photo,
+  .building-photo img {
+    height: 360px;
+    min-height: 360px;
   }
 }
