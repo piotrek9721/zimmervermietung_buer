@@ -485,6 +485,35 @@ h3 {
   text-decoration: none;
 }
 
+.map-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  max-width: 1080px;
+  margin-top: 18px;
+  padding: 24px 26px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--soft-shadow);
+}
+
+.map-panel h3,
+.map-panel p {
+  margin-bottom: 0;
+}
+
+.map-panel p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+.map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
 .split-section {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(320px, 1.2fr);
@@ -748,6 +777,18 @@ textarea:focus {
   .button {
     width: 100%;
     min-height: 48px;
+  }
+
+  .map-panel {
+    display: grid;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .map-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: stretch;
   }
 
   .content-section,
