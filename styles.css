@@ -137,6 +137,12 @@ textarea {
   background-position: center;
 }
 
+.hero-media.photo-slot.has-image {
+  background-color: #eef1f5;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .photo-slot.has-image span {
   display: none;
 }
