@@ -431,6 +431,7 @@ h3 {
 
 .feature-grid,
 .info-grid,
+.imprint-panel,
 .admin-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -439,6 +440,7 @@ h3 {
 
 .feature-grid article,
 .info-grid article,
+.imprint-panel article,
 .admin-card,
 .form-card,
 .contact-panel {
@@ -454,14 +456,27 @@ h3 {
 }
 
 .feature-grid article,
-.info-grid article {
+.info-grid article,
+.imprint-panel article {
   padding: 26px;
 }
 
 .feature-grid p,
 .info-grid p,
+.imprint-panel p,
 .room-body p {
   color: var(--muted);
+}
+
+.imprint-panel {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.imprint-panel a,
+.site-footer a {
+  color: var(--accent-strong);
+  font-weight: 800;
+  text-decoration: none;
 }
 
 .split-section {
@@ -576,6 +591,7 @@ textarea:focus {
   .room-grid,
   .feature-grid,
   .info-grid,
+  .imprint-panel,
   .building-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -616,6 +632,7 @@ textarea:focus {
   .room-grid,
   .feature-grid,
   .info-grid,
+  .imprint-panel,
   .building-gallery,
   .admin-grid,
   .form-row {
