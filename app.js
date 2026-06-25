@@ -6,7 +6,7 @@ const defaultData = {
     name: "Private Zimmervermietung Familie Schrödel",
     location: "Gelsenkirchen-Buer",
     address: "Hugostraße 42, 45897 Gelsenkirchen",
-    email: "pzv.schroedel@aol.com",
+    email: "PZV.Schroedel@aol.com",
     phone: "+49 (0)209 594318",
     mobile: "+49 (0)172 2823848",
   },
