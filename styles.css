@@ -485,6 +485,23 @@ h3 {
   text-decoration: none;
 }
 
+.map-embed {
+  max-width: 1080px;
+  height: clamp(320px, 36vw, 460px);
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--soft-shadow);
+}
+
+.map-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .map-panel {
   display: flex;
   align-items: center;
@@ -783,6 +800,10 @@ textarea:focus {
     display: grid;
     gap: 16px;
     padding: 20px;
+  }
+
+  .map-embed {
+    height: 320px;
   }
 
   .map-actions {
