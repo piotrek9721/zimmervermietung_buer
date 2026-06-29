@@ -31,7 +31,7 @@ const defaultData = {
       title: "Doppelzimmer",
       price: "ab 80 EUR / Nacht",
       availability: "3 Zimmer, max. 2 Personen",
-      image: "assets/doppelzimmer-1.jpg",
+      image: "assets/doppelzimmer-2.jpg",
       images: [
         { src: "assets/doppelzimmer-1.jpg", alt: "Doppelzimmer mit Doppelbett, Schrank und Eingang" },
         { src: "assets/doppelzimmer-2.jpg", alt: "Doppelzimmer mit zwei Betten und Fenster" },
