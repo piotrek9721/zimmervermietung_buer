@@ -244,7 +244,7 @@ function applyPhotoSlots() {
 }
 
 function prepareLightboxTriggers() {
-  document.querySelectorAll(".room-gallery img, .building-gallery img").forEach((image) => {
+  document.querySelectorAll(".room-gallery img, .building-gallery img, .kitchen-gallery img").forEach((image) => {
     image.tabIndex = 0;
     image.dataset.lightboxSrc = image.dataset.lightboxSrc || image.getAttribute("src");
   });
@@ -336,7 +336,7 @@ function showLightboxImage() {
 }
 
 function getLightboxItems() {
-  const triggers = [...document.querySelectorAll("[data-lightbox-src], .room-gallery img, .building-gallery img")];
+  const triggers = [...document.querySelectorAll("[data-lightbox-src], .room-gallery img, .building-gallery img, .kitchen-gallery img")];
   const items = triggers
     .map((trigger) => ({
       src: getLightboxSource(trigger),
@@ -353,7 +353,7 @@ function getLightboxSource(trigger) {
 
 function findLightboxTrigger(target) {
   if (!(target instanceof Element)) return null;
-  return target.closest("[data-lightbox-src], .room-gallery img, .building-gallery img");
+  return target.closest("[data-lightbox-src], .room-gallery img, .building-gallery img, .kitchen-gallery img");
 }
 
 businessForm?.addEventListener("submit", (event) => {
