@@ -160,14 +160,16 @@ textarea {
 .photo-slot.has-image,
 .room-gallery-item img,
 .building-photo img,
-.kitchen-photo img {
+.kitchen-photo img,
+.snack-photo img {
   cursor: zoom-in;
 }
 
 .photo-slot.has-image:focus-visible,
 .room-gallery-item img:focus-visible,
 .building-photo img:focus-visible,
-.kitchen-photo img:focus-visible {
+.kitchen-photo img:focus-visible,
+.snack-photo img:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 4px;
 }
@@ -422,6 +424,39 @@ h3 {
   width: 100%;
   height: 100%;
   min-height: 210px;
+  object-fit: cover;
+}
+
+.snack-section {
+  background: #fffdf9;
+}
+
+.snack-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 0.7fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 64px);
+  max-width: 1080px;
+}
+
+.snack-layout .section-heading {
+  margin-bottom: 0;
+}
+
+.snack-photo {
+  height: clamp(380px, 52vw, 640px);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(228, 221, 208, 0.95);
+  border-radius: 2px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.snack-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -789,7 +824,8 @@ textarea:focus {
   }
 
   .hero-section,
-  .split-section {
+  .split-section,
+  .snack-layout {
     grid-template-columns: 1fr;
   }
 
@@ -836,6 +872,10 @@ textarea:focus {
   .kitchen-photo img {
     height: 360px;
     min-height: 360px;
+  }
+
+  .snack-photo {
+    height: 480px;
   }
 }
 
@@ -1009,6 +1049,14 @@ textarea:focus {
   .kitchen-photo img {
     height: 320px;
     min-height: 320px;
+  }
+
+  .snack-layout {
+    gap: 22px;
+  }
+
+  .snack-photo {
+    height: 360px;
   }
 
   .room-body,
