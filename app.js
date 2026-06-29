@@ -57,8 +57,12 @@ const businessForm = document.querySelector("[data-business-form]");
 const roomForm = document.querySelector("[data-room-form]");
 const formStatus = document.querySelector("[data-form-status]");
 const adminSection = document.querySelector("[data-admin-section]");
+const lightbox = document.querySelector("[data-lightbox]");
+const lightboxImage = document.querySelector("[data-lightbox-image]");
+const lightboxCaption = document.querySelector("[data-lightbox-caption]");
 
 setupAdminVisibility();
+setupLightbox();
 
 function loadState() {
   try {
@@ -83,6 +87,7 @@ function render() {
     hydrateRoomForm();
   }
   applyPhotoSlots();
+  prepareLightboxTriggers();
 }
 
 function setupAdminVisibility() {
@@ -168,7 +173,7 @@ function renderRoomGallery(room) {
     .map(
       (image) => `
         <figure class="room-gallery-item">
-          <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy">
+          <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy" tabindex="0" data-lightbox-src="${escapeHtml(image.src)}">
         </figure>
       `,
     )
@@ -219,13 +224,136 @@ function applyPhotoSlots() {
     probe.onload = () => {
       slot.classList.add("has-image");
       slot.style.backgroundImage = `url("${imagePath}")`;
+      slot.dataset.lightboxSrc = imagePath;
+      slot.classList.add("is-clickable-image");
+      slot.tabIndex = 0;
+      slot.setAttribute("role", "button");
+      slot.setAttribute("aria-label", "Bild groß ansehen");
     };
     probe.onerror = () => {
       slot.classList.remove("has-image");
+      slot.classList.remove("is-clickable-image");
       slot.style.backgroundImage = "";
+      slot.removeAttribute("data-lightbox-src");
+      slot.removeAttribute("tabindex");
+      slot.removeAttribute("role");
+      slot.removeAttribute("aria-label");
     };
     probe.src = imagePath;
   });
+}
+
+function prepareLightboxTriggers() {
+  document.querySelectorAll(".room-gallery img, .building-gallery img").forEach((image) => {
+    image.tabIndex = 0;
+    image.dataset.lightboxSrc = image.dataset.lightboxSrc || image.getAttribute("src");
+  });
+}
+
+function setupLightbox() {
+  if (!lightbox || !lightboxImage) return;
+
+  document.addEventListener("click", (event) => {
+    const trigger = findLightboxTrigger(event.target);
+    if (!trigger) return;
+
+    event.preventDefault();
+    openLightbox(getLightboxSource(trigger));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!lightbox.hidden) {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+      if (event.key === "ArrowLeft") {
+        moveLightbox(-1);
+      }
+      if (event.key === "ArrowRight") {
+        moveLightbox(1);
+      }
+      return;
+    }
+
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const trigger = findLightboxTrigger(event.target);
+    if (!trigger) return;
+
+    event.preventDefault();
+    openLightbox(getLightboxSource(trigger));
+  });
+
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
+  document.querySelector("[data-lightbox-prev]")?.addEventListener("click", () => moveLightbox(-1));
+  document.querySelector("[data-lightbox-next]")?.addEventListener("click", () => moveLightbox(1));
+}
+
+let lightboxItems = [];
+let lightboxIndex = 0;
+
+function openLightbox(source) {
+  if (!source) return;
+
+  lightboxItems = getLightboxItems();
+  lightboxIndex = Math.max(
+    0,
+    lightboxItems.findIndex((item) => item.src === source),
+  );
+  showLightboxImage();
+  lightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+  document.querySelector("[data-lightbox-close]")?.focus();
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  document.body.classList.remove("lightbox-open");
+  lightboxImage.removeAttribute("src");
+}
+
+function moveLightbox(direction) {
+  if (lightboxItems.length === 0) return;
+
+  lightboxIndex = (lightboxIndex + direction + lightboxItems.length) % lightboxItems.length;
+  showLightboxImage();
+}
+
+function showLightboxImage() {
+  const current = lightboxItems[lightboxIndex];
+  if (!current) return;
+
+  lightboxImage.src = current.src;
+  lightboxImage.alt = current.alt;
+  if (lightboxCaption) {
+    lightboxCaption.textContent = current.alt;
+  }
+}
+
+function getLightboxItems() {
+  const triggers = [...document.querySelectorAll("[data-lightbox-src], .room-gallery img, .building-gallery img")];
+  const items = triggers
+    .map((trigger) => ({
+      src: getLightboxSource(trigger),
+      alt: trigger.getAttribute("alt") || trigger.getAttribute("aria-label") || "Bild der Unterkunft",
+    }))
+    .filter((item) => item.src);
+
+  return items.filter((item, index) => items.findIndex((entry) => entry.src === item.src) === index);
+}
+
+function getLightboxSource(trigger) {
+  return trigger.dataset.lightboxSrc || trigger.getAttribute("src") || "";
+}
+
+function findLightboxTrigger(target) {
+  if (!(target instanceof Element)) return null;
+  return target.closest("[data-lightbox-src], .room-gallery img, .building-gallery img");
 }
 
 businessForm?.addEventListener("submit", (event) => {
