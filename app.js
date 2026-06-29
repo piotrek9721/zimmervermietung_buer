@@ -136,7 +136,7 @@ function renderRooms() {
       const gallery = renderRoomGallery(room);
       return `
         <article class="room-card">
-          <div class="photo-slot" data-photo-src="${escapeHtml(room.image)}">
+          <div class="photo-slot" data-photo-src="${escapeHtml(room.image)}" data-lightbox-group="${escapeHtml(room.id)}">
             <span>Foto einpflegen: ${escapeHtml(room.image)}</span>
           </div>
           <div class="room-body">
@@ -173,7 +173,7 @@ function renderRoomGallery(room) {
     .map(
       (image) => `
         <figure class="room-gallery-item">
-          <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy" tabindex="0" data-lightbox-src="${escapeHtml(image.src)}">
+          <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy" tabindex="0" data-lightbox-src="${escapeHtml(image.src)}" data-lightbox-group="${escapeHtml(room.id)}">
         </figure>
       `,
     )
@@ -258,7 +258,7 @@ function setupLightbox() {
     if (!trigger) return;
 
     event.preventDefault();
-    openLightbox(getLightboxSource(trigger));
+    openLightbox(getLightboxSource(trigger), trigger);
   });
 
   document.addEventListener("keydown", (event) => {
@@ -280,7 +280,7 @@ function setupLightbox() {
     if (!trigger) return;
 
     event.preventDefault();
-    openLightbox(getLightboxSource(trigger));
+    openLightbox(getLightboxSource(trigger), trigger);
   });
 
   lightbox.addEventListener("click", (event) => {
@@ -297,10 +297,11 @@ function setupLightbox() {
 let lightboxItems = [];
 let lightboxIndex = 0;
 
-function openLightbox(source) {
+function openLightbox(source, trigger = null) {
   if (!source) return;
 
-  lightboxItems = getLightboxItems();
+  const group = getLightboxGroup(trigger) || getLightboxGroupBySource(source);
+  lightboxItems = getLightboxItems(group);
   lightboxIndex = Math.max(
     0,
     lightboxItems.findIndex((item) => item.src === source),
@@ -335,9 +336,10 @@ function showLightboxImage() {
   }
 }
 
-function getLightboxItems() {
+function getLightboxItems(group = "") {
   const triggers = [...document.querySelectorAll("[data-lightbox-src], .room-gallery img, .building-gallery img, .kitchen-gallery img")];
   const items = triggers
+    .filter((trigger) => isLightboxTriggerInGroup(trigger, group))
     .map((trigger) => ({
       src: getLightboxSource(trigger),
       alt: trigger.getAttribute("alt") || trigger.getAttribute("aria-label") || "Bild der Unterkunft",
@@ -349,6 +351,27 @@ function getLightboxItems() {
 
 function getLightboxSource(trigger) {
   return trigger.dataset.lightboxSrc || trigger.getAttribute("src") || "";
+}
+
+function getLightboxGroup(trigger) {
+  return trigger?.dataset?.lightboxGroup || "";
+}
+
+function getLightboxGroupBySource(source) {
+  const trigger = [...document.querySelectorAll("[data-lightbox-src]")].find((entry) => getLightboxSource(entry) === source);
+  return getLightboxGroup(trigger);
+}
+
+function isLightboxTriggerInGroup(trigger, group) {
+  if (!group) return true;
+  if (getLightboxGroup(trigger) === group) return true;
+
+  const extraGroups = (trigger.dataset.lightboxExtraFor || "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+
+  return extraGroups.includes(group);
 }
 
 function findLightboxTrigger(target) {
