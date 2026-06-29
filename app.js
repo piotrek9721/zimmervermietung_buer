@@ -16,7 +16,13 @@ const defaultData = {
       title: "Einzelzimmer",
       price: "ab 40 EUR / Nacht",
       availability: "1 Zimmer, max. 1 Person",
-      image: "assets/zimmer-1.jpg",
+      image: "assets/einzelzimmer-1.jpg",
+      images: [
+        { src: "assets/einzelzimmer-1.jpg", alt: "Einzelzimmer mit Bett und Nachttisch" },
+        { src: "assets/einzelzimmer-2.jpg", alt: "Einzelzimmer mit Bett, Sitzplatz und TV" },
+        { src: "assets/einzelzimmer-bad-1.jpg", alt: "Modernes Bad mit Waschbecken, WC und Dusche" },
+        { src: "assets/einzelzimmer-bad-2.jpg", alt: "Bad mit Dusche und Fenster" },
+      ],
       description: "Gemütlich und familiär eingerichtetes Einzelzimmer mit Zugang zu moderner Gemeinschaftsküche und Sanitärbereich.",
       features: ["1 Person", "Kostenloses WLAN", "TV", "Nichtraucherzimmer"],
     },
@@ -122,6 +128,7 @@ function renderRooms() {
   roomList.innerHTML = state.rooms
     .map((room) => {
       const features = room.features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join("");
+      const gallery = renderRoomGallery(room);
       return `
         <article class="room-card">
           <div class="photo-slot" data-photo-src="${escapeHtml(room.image)}">
@@ -134,6 +141,7 @@ function renderRooms() {
             <h3>${escapeHtml(room.title)}</h3>
             <p class="price">${escapeHtml(room.price)}</p>
             <p>${escapeHtml(room.description)}</p>
+            ${gallery}
             <ul class="feature-list">${features}</ul>
             <div class="room-actions">
               <a class="button secondary" href="#anfrage" data-select-room="${escapeHtml(room.id)}">Anfragen</a>
@@ -149,6 +157,24 @@ function renderRooms() {
       roomSelect.value = link.dataset.selectRoom;
     });
   });
+}
+
+function renderRoomGallery(room) {
+  if (!Array.isArray(room.images) || room.images.length === 0) {
+    return "";
+  }
+
+  const images = room.images
+    .map(
+      (image) => `
+        <figure class="room-gallery-item">
+          <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy">
+        </figure>
+      `,
+    )
+    .join("");
+
+  return `<div class="room-gallery" aria-label="Bilder ${escapeHtml(room.title)}">${images}</div>`;
 }
 
 function renderRoomOptions() {
