@@ -1,7 +1,7 @@
 const STORAGE_KEY = "zimmervermietung-site-data";
 
 const defaultData = {
-  version: 2,
+  version: 3,
   business: {
     name: "Private Zimmervermietung Familie Schrödel",
     location: "Gelsenkirchen-Buer",
@@ -171,6 +171,7 @@ function renderRooms() {
             ${gallery}
             <ul class="feature-list">${features}</ul>
             <div class="room-actions">
+              <button class="button secondary quiet" type="button" data-view-room="${escapeHtml(room.id)}">Bilder ansehen</button>
               <a class="button secondary" href="#anfrage" data-select-room="${escapeHtml(room.id)}">Anfragen</a>
             </div>
           </div>
@@ -182,6 +183,16 @@ function renderRooms() {
   roomList.querySelectorAll("[data-select-room]").forEach((link) => {
     link.addEventListener("click", () => {
       roomSelect.value = link.dataset.selectRoom;
+    });
+  });
+
+  roomList.querySelectorAll("[data-view-room]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const room = state.rooms.find((entry) => entry.id === button.dataset.viewRoom);
+      const firstImage = room?.images?.[0]?.src || room?.image;
+      if (firstImage) {
+        openLightbox(firstImage, button);
+      }
     });
   });
 }
