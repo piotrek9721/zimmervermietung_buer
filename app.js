@@ -191,14 +191,20 @@ function renderRoomGallery(room) {
     return "";
   }
 
-  const images = room.images
-    .map(
-      (image) => `
-        <figure class="room-gallery-item">
+  const previewImages = room.images.slice(0, 4);
+  const hiddenImageCount = Math.max(0, room.images.length - previewImages.length);
+
+  const images = previewImages
+    .map((image, index) => {
+      const hasMoreOverlay = hiddenImageCount > 0 && index === previewImages.length - 1;
+
+      return `
+        <figure class="room-gallery-item${hasMoreOverlay ? " has-more" : ""}">
           <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy" tabindex="0" data-lightbox-src="${escapeHtml(image.src)}" data-lightbox-group="${escapeHtml(room.id)}">
+          ${hasMoreOverlay ? `<span class="gallery-more">+${hiddenImageCount} Mehr ansehen</span>` : ""}
         </figure>
-      `,
-    )
+      `;
+    })
     .join("");
 
   return `<div class="room-gallery" aria-label="Bilder ${escapeHtml(room.title)}">${images}</div>`;
